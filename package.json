@@ -1,6 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
+  "type": "module",
   "description": "my first project - brain-games",
   "main": "bin/brain-games.js ",
   "scripts": {
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/xG2x/frontend-project-44/issues"
   },
-  "homepage": "https://github.com/xG2x/frontend-project-44#readme"
+  "homepage": "https://github.com/xG2x/frontend-project-44#readme",
+  "bin": {
+    "code": "bin/brain-games.js",
+    "brain-games": "bin/brain-games.js"
+  }
+
 }
