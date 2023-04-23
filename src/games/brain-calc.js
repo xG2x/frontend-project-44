@@ -12,8 +12,14 @@ const getRandomExpression = () => {
 };
 
 const getCorrectAnswer = (expression) => {
-  const correctAnswer = String(eval(expression));
-  return correctAnswer;
+  const [num1, operation, num2] = expression.split(' ');
+  let correctAnswer = 0;
+  if (operation === '-') {
+    correctAnswer = Number(num1) - Number(num2);
+  } else if (operation === '+') {
+    correctAnswer = Number(num1) + Number(num2);
+  } else correctAnswer = Number(num1) * Number(num2);
+  return String(correctAnswer);
 };
 
 const askQuestion = (expression) => {
