@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/xG2x/frontend-project-44#readme",
   "bin": {
-    "code": "bin/brain-games.js",
     "brain-even": "bin/brain-even.js",
     "brain-games": "bin/brain-games.js",
     "brain-calc": "bin/brain-calc.js",
