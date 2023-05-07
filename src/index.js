@@ -3,10 +3,10 @@ import readlineSync from 'readline-sync';
 const COUNT = 3;
 
 const gameLogic = (game, description) => {
-  let count = 1;
   console.log('Welcome to The Brain Games!');
   const name = readlineSync.question('May I have your name?: ');
   console.log(`Hello, ${name}!`);
+  let count = 1;
   console.log(`${description}`);
   while (count <= COUNT) {
     const { correctAnswer, answer } = game();
