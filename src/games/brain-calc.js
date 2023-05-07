@@ -1,12 +1,16 @@
 import readlineSync from 'readline-sync';
 import gameLogic from '../index.js';
+import playRound from '../play-round.js';
+import getRandomNumb from '../random-generator.js';
 
 const description = 'What is the result of the expression?';
 const availableOperations = ['+', '-', '*'];
+const maxNum = 100; //  upper limit of number
+const minNum = 1; //  lower limit of number
 
 const getRandomExpression = () => {
-  const number1 = Math.round(Math.random() * 20); // random number in the range from 0 to 20;
-  const number2 = Math.round(Math.random() * 20); // random number in the range from 0 to 20;
+  const number1 = getRandomNumb(minNum, maxNum);
+  const number2 = getRandomNumb(minNum, maxNum);
   const operation = availableOperations[Math.floor(Math.random() * availableOperations.length)];
   return `${number1} ${operation} ${number2}`;
 };
@@ -27,14 +31,6 @@ const askQuestion = (expression) => {
   return readlineSync.question('Your answer: ');
 };
 
-const brainCalc = () => {
-  const expression = getRandomExpression();
-  const correctAnswer = getCorrectAnswer(expression);
-  const answer = askQuestion(expression);
-  return {
-    correctAnswer,
-    answer,
-  };
-};
+const brainCalc = () => playRound(getRandomExpression, getCorrectAnswer, askQuestion);
 
 export default () => gameLogic(brainCalc, description);

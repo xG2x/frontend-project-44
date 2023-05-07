@@ -1,20 +1,22 @@
 import readlineSync from 'readline-sync';
 import gameLogic from '../index.js';
+import playRound from '../play-round.js';
+import getRandomNumb from '../random-generator.js';
 
 const description = 'What number is missing in the progression?';
 
-const maxLength = 10;
-const minLength = 5;
-const maxFirstNum = 50;
-const maxStep = 5;
-const minStep = 1;
-const step = Math.round(minStep + Math.random() * (maxStep - minStep));
+const maxLength = 10; //  max progression's length
+const minLength = 5; //  min progression's length
+const maxFirstNum = 50; //  max progression's start number
+const minFirstNum = 1; // min progression's start number
+const maxStep = 5; // max progression's step
+const minStep = 1; // min progression's step
+const step = getRandomNumb(minStep, maxStep);
 
 const getRandomExpression = () => {
-  const firstNum = Math.round(Math.random() * maxFirstNum);
-  const length = Math.round(minLength + Math.random() * (maxLength - minLength));
-
-  const hiddenNumIndex = Math.round(Math.random() * (length - 1));
+  const firstNum = getRandomNumb(minFirstNum, maxFirstNum);
+  const length = getRandomNumb(minLength, maxLength);
+  const hiddenNumIndex = getRandomNumb(0, length - 1);
   const expression = [];
   for (let i = 0; i < length; i += 1) {
     if (i !== hiddenNumIndex) {
@@ -40,14 +42,6 @@ const askQuestion = (expression) => {
   return readlineSync.question('Your answer: ');
 };
 
-const brainProgression = () => {
-  const expression = getRandomExpression();
-  const correctAnswer = getCorrectAnswer(expression);
-  const answer = askQuestion(expression);
-  return {
-    correctAnswer,
-    answer,
-  };
-};
+const brainProgression = () => playRound(getRandomExpression, getCorrectAnswer, askQuestion);
 
 export default () => gameLogic(brainProgression, description);

@@ -1,39 +1,24 @@
 import readlineSync from 'readline-sync';
+import gameLogic from '../index.js';
+import playRound from '../play-round.js';
+import getRandomNumb from '../random-generator.js';
 
-const COUNT = 3; // number of repeating questions;
+const description = 'Answer "yes" if the number is even, otherwise answer "no".';
+const maxNum = 100; //  upper limit of number
+const minNum = 1; //  lower limit of number
 
-const getCorrectAnswer = (number) => {
-  const isEven = number % 2 === 0;
+const getRandomExpression = () => getRandomNumb(minNum, maxNum);
+
+const getCorrectAnswer = (num) => {
+  const isEven = num % 2 === 0;
   return isEven ? 'yes' : 'no';
 };
 
-const askQuestion = (number) => {
-  console.log(`Question: ${number}`);
+const askQuestion = (num) => {
+  console.log(`Question: ${num}`);
   return readlineSync.question('Your answer: ');
 };
 
-const brainEven = () => {
-  let count = 1;
-  console.log('Welcome to the Brain Games!');
-  const username = readlineSync.question('May I have your name? ');
-  console.log(`Hello, ${username}!`);
-  console.log('Answer "yes" if the number is even, otherwise answer "no".');
+const brainEven = () => playRound(getRandomExpression, getCorrectAnswer, askQuestion);
 
-  while (count <= COUNT) {
-    const number = Math.round(Math.random() * 100); // random number in the range from 0 to 100;;
-    const correctAnswer = getCorrectAnswer(number);
-    const answer = askQuestion(number);
-    if (answer === correctAnswer) {
-      console.log('Correct');
-      if (count === COUNT) {
-        console.log(`Congratulations, ${username}!`);
-      }
-      count += 1;
-    } else {
-      console.log(`${answer} is wrong answer ;(. Correct answer was ${correctAnswer}.\nLet's try again, ${username}!`);
-      break;
-    }
-  }
-};
-
-export default brainEven;
+export default () => gameLogic(brainEven, description);
